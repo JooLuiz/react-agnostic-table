@@ -1,0 +1,36 @@
+{
+  "name": "js-pretty-icons",
+  "version": "0.0.1",
+  "description": "JS Pretty Icons is a component with a lot of icon options that comes from SVGRepo website ",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "rollup": "rollup -c --bundleConfigAsCjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:JooLuiz/js-pretty-icons.git"
+  },
+  "author": "João Luiz de Castro (https://github.com/JooLuiz)",
+  "keywords": [
+    "Icons",
+    "Typescript",
+    "React"
+  ],
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/react": "^19.0.8",
+    "react": "^19.0.0",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "tslib": "^2.8.1",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "rollup": "^4.34.6"
+  }
+}
