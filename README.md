@@ -1,6 +1,6 @@
 # js-pretty-icons
 
-A React component library for beautiful and customizable icons.
+JS Pretty Icons is a component library with a lot of beautiful and customizable icons, all of them from SVGRepo website.
 
 ## Installation
 
@@ -21,13 +21,15 @@ import PrettyIcons from 'js-pretty-icons';
 #### With custom width, height, and color
 
 ```typescript
-<PrettyIcons icon="chevron-up" width="32" height="32" color="#FF0000" />
+<PrettyIcons icon="chevron-up" width={32} height={32} color="#FF0000" />
 ```
 
 ## Available Icons
 
 - chevron-down
 - chevron-up
+- chevron-right
+- chevron-left
 
 All icons are sourced from [SVG Repo](https://www.svgrepo.com/) and you can find the icon page on the icon file inside `assets` folder.
 

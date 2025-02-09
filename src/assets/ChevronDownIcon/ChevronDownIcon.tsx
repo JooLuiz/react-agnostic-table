@@ -1,6 +1,6 @@
 import { IconProps } from "../../types/shared";
 
-//Icon Link: www.svgrepo.com/svg/533653/chevron-down
+//Icon Link: https://www.svgrepo.com/svg/533653/chevron-down
 const ChevronDownIcon = ({ width, height, color }: IconProps) => {
   return (
     <svg

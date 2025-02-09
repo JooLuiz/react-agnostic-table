@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - yyyy-mm-dd
 
+## [0.0.2] - 2025-02-09
+
+### Added
+
+- Implementing Chevron Right and Left icons and removing "any" types.
+
 ## [0.0.1] - 2025-02-09
 
 ### Added
