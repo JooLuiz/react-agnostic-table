@@ -28,6 +28,8 @@ import PrettyIcons from 'js-pretty-icons';
 
 - chevron-down
 - chevron-up
+- chevron-right
+- chevron-left
 
 All icons are sourced from [SVG Repo](https://www.svgrepo.com/) and you can find the icon page on the icon file inside `assets` folder.
 
