@@ -1,7 +1,7 @@
 import { IconProps } from "../../types/shared";
 
-//Icon Link: https://www.svgrepo.com/svg/533664/chevron-up
-const ChevronUpIcon = ({ width, height, color }: IconProps) => {
+//Icon Link: https://www.svgrepo.com/svg/533661/chevron-right
+const ChevronRightIcon = ({ width, height, color }: IconProps) => {
   return (
     <svg
       width={width ? width : 32}
@@ -11,7 +11,7 @@ const ChevronUpIcon = ({ width, height, color }: IconProps) => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M6 15L12 9L18 15"
+        d="M9 6L15 12L9 18"
         stroke={color ? color : "#000000"}
         strokeWidth="2"
         strokeLinecap="round"
@@ -21,4 +21,4 @@ const ChevronUpIcon = ({ width, height, color }: IconProps) => {
   );
 };
 
-export { ChevronUpIcon };
+export { ChevronRightIcon };

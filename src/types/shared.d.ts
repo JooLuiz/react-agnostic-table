@@ -4,4 +4,8 @@ export type IconProps = {
   color?: string;
 };
 
-export type Icons = "chevron-down" | "chevron-up";
+export type Icons =
+  | "chevron-down"
+  | "chevron-up"
+  | "chevron-right"
+  | "chevron-left";
