@@ -37,73 +37,278 @@ import WhatsappIcon from "../../assets/WhatsappIcon";
 import type { PrettyIconsProps } from "../../types/prettyIcons";
 import type { Icons } from "../../types/shared";
 
-const PrettyIcons = ({ icon, width, height, color }: PrettyIconsProps) => {
+const PrettyIcons = ({
+  icon,
+  width,
+  height,
+  color,
+  className,
+}: PrettyIconsProps) => {
   const iconComponent: Record<Icons, React.ReactNode> = {
     "anchor-link": (
-      <AnchorLinkIcon width={width} height={height} color={color} />
+      <AnchorLinkIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
     ),
-    bag: <BagIcon width={width} height={height} color={color} />,
+    bag: (
+      <BagIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
     "bag-variant-1": (
-      <BagVariantOneIcon width={width} height={height} color={color} />
+      <BagVariantOneIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
     ),
     "bag-variant-2": (
-      <BagVariantTwoIcon width={width} height={height} color={color} />
+      <BagVariantTwoIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
     ),
-    cart: <CartIcon width={width} height={height} color={color} />,
+    cart: (
+      <CartIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
     "cart-variant-1": (
-      <CartVariantOneIcon width={width} height={height} color={color} />
+      <CartVariantOneIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
     ),
     "cart-variant-2": (
-      <CartVariantTwoIcon width={width} height={height} color={color} />
+      <CartVariantTwoIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
     ),
     "chevron-down": (
-      <ChevronDownIcon width={width} height={height} color={color} />
+      <ChevronDownIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
     ),
     "chevron-left": (
-      <ChevronLeftIcon width={width} height={height} color={color} />
+      <ChevronLeftIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
     ),
     "chevron-right": (
-      <ChevronRightIcon width={width} height={height} color={color} />
+      <ChevronRightIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
     ),
-    "chevron-up": <ChevronUpIcon width={width} height={height} color={color} />,
-    facebook: <FacebookIcon width={width} height={height} color={color} />,
+    "chevron-up": (
+      <ChevronUpIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
+    facebook: (
+      <FacebookIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
     "half-heart-filled": (
-      <HalfHeartFilledIcon width={width} height={height} color={color} />
+      <HalfHeartFilledIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
     ),
-    "half-heart": <HalfHeartIcon width={width} height={height} color={color} />,
+    "half-heart": (
+      <HalfHeartIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
     "half-star-filled": (
-      <HalfStarFilledIcon width={width} height={height} color={color} />
+      <HalfStarFilledIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
     ),
-    "half-star": <HalfStarIcon width={width} height={height} color={color} />,
+    "half-star": (
+      <HalfStarIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
     "heart-filled": (
-      <HeartFilledIcon width={width} height={height} color={color} />
+      <HeartFilledIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
     ),
-    heart: <HeartIcon width={width} height={height} color={color} />,
-    home: <HomeIcon width={width} height={height} color={color} />,
+    heart: (
+      <HeartIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
+    home: (
+      <HomeIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
     "home-variant-1": (
-      <HomeVariantOneIcon width={width} height={height} color={color} />
+      <HomeVariantOneIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
     ),
-    instagram: <InstagramIcon width={width} height={height} color={color} />,
+    instagram: (
+      <InstagramIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
     "instagram-old": (
-      <InstagramOldIcon width={width} height={height} color={color} />
+      <InstagramOldIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
     ),
-    location: <LocationIcon width={width} height={height} color={color} />,
+    location: (
+      <LocationIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
     "location-variant-1": (
-      <LocationVariantOneIcon width={width} height={height} color={color} />
+      <LocationVariantOneIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
     ),
-    menu: <MenuIcon width={width} height={height} color={color} />,
-    messenger: <MessengerIcon width={width} height={height} color={color} />,
-    profile: <ProfileIcon width={width} height={height} color={color} />,
+    menu: (
+      <MenuIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
+    messenger: (
+      <MessengerIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
+    profile: (
+      <ProfileIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
     "profile-variant-1": (
-      <ProfileVariantOneIcon width={width} height={height} color={color} />
+      <ProfileVariantOneIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
     ),
-    search: <SearchIcon width={width} height={height} color={color} />,
+    search: (
+      <SearchIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
     "star-filled": (
-      <StarFilledIcon width={width} height={height} color={color} />
+      <StarFilledIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
     ),
-    star: <StarIcon width={width} height={height} color={color} />,
-    twitter: <TwitterIcon width={width} height={height} color={color} />,
-    whatsapp: <WhatsappIcon width={width} height={height} color={color} />,
+    star: (
+      <StarIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
+    twitter: (
+      <TwitterIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
+    whatsapp: (
+      <WhatsappIcon
+        width={width}
+        height={height}
+        color={color}
+        className={className}
+      />
+    ),
   };
 
   return iconComponent[icon];

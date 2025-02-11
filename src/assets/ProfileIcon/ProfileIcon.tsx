@@ -1,7 +1,7 @@
 import { IconProps } from "../../types/shared";
 
 //Icon Link: https://www.svgrepo.com/svg/512729/profile-round-1342
-const ProfileIcon = ({ width, height, color }: IconProps) => {
+const ProfileIcon = ({ width, height, color, className }: IconProps) => {
   return (
     <svg
       width={width ? width : 32}
@@ -9,6 +9,7 @@ const ProfileIcon = ({ width, height, color }: IconProps) => {
       viewBox="0 0 20 20"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
+      className={`profile-icon ${className}`}
     >
       <title>profile_round [#1342]</title>
       <desc>Created with Sketch.</desc>

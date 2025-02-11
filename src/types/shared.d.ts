@@ -2,6 +2,7 @@ export type IconProps = {
   width?: number;
   height?: number;
   color?: string;
+  className?: string;
 };
 
 export type Icons =
@@ -21,8 +22,8 @@ export type Icons =
   | "half-heart"
   | "half-star-filled"
   | "half-star"
-  | "heart"
   | "heart-filled"
+  | "heart"
   | "home"
   | "home-variant-1"
   | "instagram"

@@ -1,7 +1,7 @@
 import { IconProps } from "../../types/shared";
 
 //Icon Link: https://www.svgrepo.com/svg/522166/location
-const LocationIcon = ({ width, height, color }: IconProps) => {
+const LocationIcon = ({ width, height, color, className }: IconProps) => {
   return (
     <svg
       width={width ? width : 32}
@@ -9,6 +9,7 @@ const LocationIcon = ({ width, height, color }: IconProps) => {
       viewBox="-4 0 32 32"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
+      className={`location-icon ${className}`}
     >
       <title>location</title>
       <desc>Created with Sketch Beta.</desc>

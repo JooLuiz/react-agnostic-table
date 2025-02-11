@@ -1,7 +1,7 @@
 import { IconProps } from "../../types/shared";
 
 //Icon Link: https://www.svgrepo.com/svg/521452/anchor-link
-const AnchorLinkIcon = ({ width, height, color }: IconProps) => {
+const AnchorLinkIcon = ({ width, height, color, className }: IconProps) => {
   return (
     <svg
       width={width ? width : 32}
@@ -9,6 +9,7 @@ const AnchorLinkIcon = ({ width, height, color }: IconProps) => {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={`anchor-link-icon ${className}`}
     >
       <path
         d="M13.2218 3.32234C15.3697 1.17445 18.8521 1.17445 21 3.32234C23.1479 5.47022 23.1479 8.95263 21 11.1005L17.4645 14.636C15.3166 16.7839 11.8342 16.7839 9.6863 14.636C9.48752 14.4373 9.30713 14.2271 9.14514 14.0075C8.90318 13.6796 8.97098 13.2301 9.25914 12.9419C9.73221 12.4688 10.5662 12.6561 11.0245 13.1435C11.0494 13.1699 11.0747 13.196 11.1005 13.2218C12.4673 14.5887 14.6834 14.5887 16.0503 13.2218L19.5858 9.6863C20.9526 8.31947 20.9526 6.10339 19.5858 4.73655C18.219 3.36972 16.0029 3.36972 14.636 4.73655L13.5754 5.79721C13.1849 6.18774 12.5517 6.18774 12.1612 5.79721C11.7706 5.40669 11.7706 4.77352 12.1612 4.383L13.2218 3.32234Z"

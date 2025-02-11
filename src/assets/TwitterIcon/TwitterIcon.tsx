@@ -1,7 +1,7 @@
 import { IconProps } from "../../types/shared";
 
 //Icon Link: https://www.svgrepo.com/svg/521900/twitter
-const TwitterIcon = ({ width, height, color }: IconProps) => {
+const TwitterIcon = ({ width, height, color, className }: IconProps) => {
   return (
     <svg
       width={width ? width : 32}
@@ -9,6 +9,7 @@ const TwitterIcon = ({ width, height, color }: IconProps) => {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={`twitter-icon ${className}`}
     >
       <path
         fillRule="evenodd"

@@ -1,7 +1,12 @@
 import { IconProps } from "../../types/shared";
 
 //Icon Link: https://www.svgrepo.com/svg/522440/profile
-const ProfileVariantOneIcon = ({ width, height, color }: IconProps) => {
+const ProfileVariantOneIcon = ({
+  width,
+  height,
+  color,
+  className,
+}: IconProps) => {
   return (
     <svg
       width={width ? width : 32}
@@ -9,6 +14,7 @@ const ProfileVariantOneIcon = ({ width, height, color }: IconProps) => {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={`profile-variant-1-icon ${className}`}
     >
       <g clipPath="url(#clip0_15_82)">
         <rect width="24" height="24" fill="white" />

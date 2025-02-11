@@ -1,7 +1,7 @@
 import { IconProps } from "../../types/shared";
 
 //Icon Link: https://www.svgrepo.com/svg/535439/home-1
-const HomeVariantOneIcon = ({ width, height, color }: IconProps) => {
+const HomeVariantOneIcon = ({ width, height, color, className }: IconProps) => {
   return (
     <svg
       width={width ? width : 32}
@@ -9,6 +9,7 @@ const HomeVariantOneIcon = ({ width, height, color }: IconProps) => {
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={`home-variant-1-icon ${className}`}
     >
       <path
         fillRule="evenodd"
