@@ -65,7 +65,7 @@ return (
 
 ## Available Icons
 
-<table>
+<table style="background-color: #0d1117">
 <tr></tr>
 <tr>
 <td>
