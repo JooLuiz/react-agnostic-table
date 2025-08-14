@@ -1,7 +1,7 @@
 {
-  "name": "js-pretty-icons",
-  "version": "0.1.1",
-  "description": "JS Pretty Icons is a component library with a lot of beautiful and customizable icons, all of them from SVGRepo website.",
+  "name": "react-header-component",
+  "version": "0.0.1",
+  "description": "React Header Component",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -10,13 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:JooLuiz/js-pretty-icons.git"
+    "url": "git@github.com:JooLuiz/react-header-component.git"
   },
   "author": "João Luiz de Castro (https://github.com/JooLuiz)",
   "keywords": [
-    "Icons",
+    "Table",
+    "JavaScript",
     "Typescript",
-    "React"
+    "React",
+    "Micro Frontend"
   ],
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.2",
