@@ -1,0 +1,49 @@
+@startuml Internal Pagination and Filter
+title react-agnostic-table internal pagination and filter
+
+actor User as user
+participant "website" as website
+participant "react-agnostic-table" as table
+
+user -> website: accesses a table page
+website -> table: send props (at least headers and data) to package
+activate table
+
+opt has initial filters or search
+    table -> table: calculate total pages
+    table -> table: apply filter (and condition)
+    table -> table: apply search (or condition)
+    table -> table: get current page data
+end
+
+website <-- table: return mounted table with filters and in current page
+deactivate table
+
+user <-- website: render page with table component
+
+opt user changes page
+    loop
+        user -> website: page changes
+        website -> table: page changes
+        activate table
+        table -> table: get current page data
+        website <-- table: return mounted table with new page data
+        deactivate table
+        user <-- website: shows table with new page data
+    end
+end
+
+opt user applies search or filters
+    loop
+        user -> website: new filters or search
+        website -> table: new filters or search
+        activate table
+        table -> table: apply filter (and condition)
+        table -> table: apply search (or condition)
+        table -> table: get first page filtered data
+        website <-- table: return mounted table with filtered data
+        deactivate table
+        user <-- website: shows table with filtered data
+    end
+end
+@enduml
