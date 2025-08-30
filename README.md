@@ -1,6 +1,6 @@
-# react-table-component
+# react-agnostic-table
 
-React Table Component.
+React Agnostic Table.
 
 ## Contributing
 

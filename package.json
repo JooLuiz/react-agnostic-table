@@ -1,16 +1,17 @@
 {
-  "name": "react-header-component",
+  "name": "react-agnostic-table",
   "version": "0.0.1",
-  "description": "React Header Component",
+  "description": "React Agnostic Table",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
-    "rollup": "rollup -c --bundleConfigAsCjs"
+    "rollup": "rollup -c --bundleConfigAsCjs",
+    "watch": "rollup -c --bundleConfigAsCjs --watch"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:JooLuiz/react-header-component.git"
+    "url": "git@github.com:JooLuiz/react-agnostic-table.git"
   },
   "author": "João Luiz de Castro (https://github.com/JooLuiz)",
   "keywords": [
