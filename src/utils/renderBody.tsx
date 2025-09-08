@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 export default function renderBody(
   headers: Record<string, string>,
   data: Record<string, string | number | React.ReactNode>[],
+  bodyStyles?: StyleType,
   rowClassNames?: string,
   rowItemClassNames?: string
 ) {
@@ -11,7 +12,7 @@ export default function renderBody(
       return (
         <td
           key={`${headerKey}-${rowIndex}`}
-          className={`table-body-row-item ${rowItemClassNames}`}
+          className={`table-body-row-item ${rowItemClassNames} ${bodyStyles?.bodyCell}`}
         >
           {dataItem[headerKey] as ReactNode}
         </td>
@@ -19,7 +20,10 @@ export default function renderBody(
     });
 
     return (
-      <tr key={`row-${rowIndex}`} className={`table-body-row ${rowClassNames}`}>
+      <tr
+        key={`row-${rowIndex}`}
+        className={`table-body-row ${rowClassNames} ${bodyStyles?.bodyRow}`}
+      >
         {mountedRowItems}
       </tr>
     );

@@ -1,5 +1,6 @@
 export default function renderHeaders(
   headers: Record<string, string>,
+  headerStyles?: StyleType,
   headerClassNames?: string,
   headerItemClassNames?: string
 ) {
@@ -7,7 +8,7 @@ export default function renderHeaders(
     return (
       <th
         key={headerKey}
-        className={`table-header-row-item ${headerItemClassNames}`}
+        className={`table-header-row-item ${headerItemClassNames} ${headerStyles?.headerCell}`}
       >
         {headers[headerKey]}
       </th>
@@ -15,6 +16,10 @@ export default function renderHeaders(
   });
 
   return (
-    <tr className={`table-header-row ${headerClassNames}`}>{mountedRows}</tr>
+    <tr
+      className={`table-header-row ${headerClassNames} ${headerStyles?.headerRow}`}
+    >
+      {mountedRows}
+    </tr>
   );
 }
