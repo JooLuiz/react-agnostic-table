@@ -1,0 +1,103 @@
+:root {
+  --black-0: #000000;
+  --white-0: #ffffff;
+}
+
+/* General */
+.tableContainer {
+  background-color: var(--white-0);
+}
+
+.tableTitle {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.tableWrapper {
+  margin-top: 24px;
+}
+
+.tableElement {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Header */
+.tableHead {
+  background-color: var(--black-0);
+}
+
+.headerRow {
+  border: 1px solid var(--black-0);
+}
+
+.headerCell {
+  color: var(--white-0);
+  font-size: 14px;
+  border-right: 1px solid var(--white-0);
+  height: 45px;
+  text-align: left;
+  padding-left: 16px;
+}
+
+.sortableHeader {
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.sortableHeader:hover {
+  background-color: #333333;
+  cursor: pointer;
+}
+
+.sortableHeaderButton {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sortableHeaderButton:focus-visible {
+  outline: 2px solid var(--white-0);
+  outline-offset: -2px;
+}
+
+.headerContent {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sortIndicator {
+  display: inline-flex;
+  flex-direction: column;
+  font-size: 10px;
+  margin-left: 4px;
+  opacity: 1;
+}
+
+.sortIcon {
+  opacity: 0.35;
+}
+
+.sortIconActive {
+  opacity: 1;
+}
+
+/* Body */
+.bodyRow {
+  border: 1px solid var(--black-0);
+}
+
+.bodyCell {
+  font-size: 14px;
+  border-right: 1px solid var(--black-0);
+  height: 45px;
+  text-align: left;
+  padding-left: 16px;
+}

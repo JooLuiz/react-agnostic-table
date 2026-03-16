@@ -1,3 +1,4 @@
-import { TableComponent } from "./components/TableComponent/TableComponent";
+import TableComponent from "./components/TableComponent";
+import PaginationComponent from "./components/PaginationComponent";
 
-export { TableComponent as default };
+export { TableComponent as default, PaginationComponent };

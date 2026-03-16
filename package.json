@@ -7,7 +7,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "rollup": "rollup -c --bundleConfigAsCjs",
-    "watch": "rollup -c --bundleConfigAsCjs --watch"
+    "watch": "rollup -c --bundleConfigAsCjs --watch",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -26,14 +27,26 @@
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/jest": "^30.0.0",
     "@types/react": "^19.0.8",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
+    "postcss": "^8.5.6",
     "react": "^19.0.0",
     "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "ts-jest": "^29.4.6",
     "tslib": "^2.8.1",
     "typescript": "^5.7.3"
   },
   "dependencies": {
     "rollup": "^4.34.6"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
