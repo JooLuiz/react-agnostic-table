@@ -20,11 +20,13 @@ interface TableComponentTypes {
     onSortingCallback?: (sortKey: string, direction: SortDirection | null) => void;
     containerClassNames?: string;
     titleClassNames?: string;
+    colorPalette?: TableColorPalette;
   };
 }
 
 type Locations = "right" | "left" | "center";
 type SortDirection = "asc" | "desc";
+type TableColorPalette = "classic" | "modernDark" | "softEarth";
 
 interface SortConfig {
   key: string;

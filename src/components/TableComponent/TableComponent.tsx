@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import styles from "./TableComponent.module.css";
+import themes from "../../themes/tableThemes.module.css";
 
 import PaginationComponent from "../PaginationComponent";
 
@@ -25,6 +26,7 @@ const TableComponent = ({ params }: TableComponentTypes) => {
     sortableHeaders,
     externalSorting = false,
     onSortingCallback,
+    colorPalette = "classic",
   } = params;
   const [currentPage, setCurrentPage] = useState(
     Math.max(paramCurrentPage, 1)
@@ -136,7 +138,8 @@ const TableComponent = ({ params }: TableComponentTypes) => {
 
   return (
     <div
-      className={`table-container ${styles.tableContainer} ${containerClassNames}`}
+      className={`table-container ${styles.tableContainer} ${themes.tableThemes} ${containerClassNames}`}
+      data-theme={colorPalette}
     >
       {title && (
         <div className={`table-title ${styles.tableTitle} ${titleClassNames}`}>

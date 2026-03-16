@@ -44,6 +44,7 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
+    "js-pretty-icons": "^0.1.1",
     "rollup": "^4.34.6"
   },
   "files": [
