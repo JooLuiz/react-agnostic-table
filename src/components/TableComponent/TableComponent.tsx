@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import styles from "./TableComponent.module.css";
-import themes from "../../themes/tableThemes.module.css";
+import themes from "../../themes/themes.module.css";
 
 import PaginationComponent from "../PaginationComponent";
 
