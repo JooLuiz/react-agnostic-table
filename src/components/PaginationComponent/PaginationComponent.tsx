@@ -1,17 +1,8 @@
-import { useEffect, useState } from "react";
 import styles from "./PaginationComponent.module.css";
 
 const PaginationComponent = ({ params }: PaginationComponentTypes) => {
-  const { totalPages, onCurrentPageChangeCallback, paginationLocation } =
+  const { totalPages, currentPage, onPageChange, paginationLocation = "center" } =
     params;
-
-  const [currentPage, setCurrentPage] = useState<number>(params.currentPage);
-
-  useEffect(() => {
-    if (onCurrentPageChangeCallback) {
-      onCurrentPageChangeCallback(currentPage);
-    }
-  }, [currentPage]);
 
   const pageNumbers = [];
 
@@ -36,18 +27,16 @@ const PaginationComponent = ({ params }: PaginationComponentTypes) => {
     <div
       className={`pagination-wrapper 
           ${styles.paginationWrapper}
-          ${
-            paginationLocation === "center" &&
-            styles.paginationWrapperAlignedCenter
-          }
-          ${
-            paginationLocation === "right" &&
-            styles.paginationWrapperAlignedRight
-          }`}
+          ${paginationLocation === "center" &&
+        styles.paginationWrapperAlignedCenter
+        }
+          ${paginationLocation === "right" &&
+        styles.paginationWrapperAlignedRight
+        }`}
     >
       <div className={`pagination-container ${styles.paginationContainer}`}>
         <button
-          onClick={() => setCurrentPage(1)}
+          onClick={() => onPageChange(1)}
           disabled={currentPage === 1}
           className={`pagination-button-first ${styles.paginationButton}`}
         >
@@ -55,7 +44,7 @@ const PaginationComponent = ({ params }: PaginationComponentTypes) => {
           {"<<"}
         </button>
         <button
-          onClick={() => setCurrentPage(currentPage - 1)}
+          onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
           className={`pagination-button-previous ${styles.paginationButton}`}
         >
@@ -66,17 +55,16 @@ const PaginationComponent = ({ params }: PaginationComponentTypes) => {
         {visiblePages.map((page) => (
           <button
             key={page}
-            onClick={() => setCurrentPage(page)}
-            className={`pagination-button-current-page ${
-              styles.paginationButtonPages
-            } ${page === currentPage && styles.paginationButtonCurrentPage}`}
+            onClick={() => onPageChange(page)}
+            className={`pagination-button-current-page ${styles.paginationButtonPages
+              } ${page === currentPage && styles.paginationButtonCurrentPage}`}
           >
             {page}
           </button>
         ))}
 
         <button
-          onClick={() => setCurrentPage(currentPage + 1)}
+          onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
           className={`pagination-button-next ${styles.paginationButton}`}
         >
@@ -84,7 +72,7 @@ const PaginationComponent = ({ params }: PaginationComponentTypes) => {
           {">"}
         </button>
         <button
-          onClick={() => setCurrentPage(totalPages)}
+          onClick={() => onPageChange(totalPages)}
           disabled={currentPage === totalPages}
           className={`pagination-button-last ${styles.paginationButton}`}
         >

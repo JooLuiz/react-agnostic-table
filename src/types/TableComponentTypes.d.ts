@@ -9,18 +9,27 @@ interface TableComponentTypes {
     totalPages?: number;
     paginationLocation?: Locations;
     onPageChangeCallback?(page: number): void;
-    isFilterable?: boolean;
-    externalFiltering?: boolean;
-    filters?: FilterOption[];
-    filtersModalPlace?: Locations;
-    onSearchCallback?(newTerm: string): void;
-    onFilterCallback?(filters: Record<string, string | string[]>): void;
+    //isFilterable?: boolean;
+    //externalFiltering?: boolean;
+    //filters?: FilterOption[];
+    //filtersModalPlace?: Locations;
+    //onSearchCallback?(newTerm: string): void;
+    //onFilterCallback?(filters: Record<string, string | string[]>): void;
+    sortableHeaders?: string[];
+    externalSorting?: boolean;
+    onSortingCallback?: (sortKey: string, direction: SortDirection | null) => void;
     containerClassNames?: string;
     titleClassNames?: string;
   };
 }
 
 type Locations = "right" | "left" | "center";
+type SortDirection = "asc" | "desc";
+
+interface SortConfig {
+  key: string;
+  direction: SortDirection;
+}
 
 interface FilterOption {
   key: string;
