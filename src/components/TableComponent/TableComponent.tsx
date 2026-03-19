@@ -4,12 +4,15 @@ import styles from "./TableComponent.module.css";
 import themes from "../../themes/themes.module.css";
 
 import PaginationComponent from "../PaginationComponent";
+import SearchComponent from "../SearchComponent";
 
 import renderHeaders from "../../utils/renderHeaders";
 import renderBody from "../../utils/renderBody";
 import calculateTotalPages from "../../utils/calculateTotalPages";
 import getCurrentPageContent from "../../utils/getCurrentPageContent";
-import normalizeSortValue from "../../utils/normalizeSortValue";
+import sortData from "../../utils/sortData";
+import getValidHeaders from "../../utils/getValidHeaders";
+import { ALL_SEARCH_KEY } from "../../utils/consts";
 
 const TableComponent = ({ params }: TableComponentTypes) => {
   const {
@@ -26,6 +29,10 @@ const TableComponent = ({ params }: TableComponentTypes) => {
     sortableHeaders,
     externalSorting = false,
     onSortingCallback,
+    showSearchInput = false,
+    searchableHeaders,
+    externalSearch = false,
+    onSearchCallback,
     colorPalette = "classic",
   } = params;
   const [currentPage, setCurrentPage] = useState(
@@ -33,13 +40,16 @@ const TableComponent = ({ params }: TableComponentTypes) => {
   );
 
   const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchKey, setSearchKey] = useState(ALL_SEARCH_KEY);
 
   const validSortableHeaders = useMemo(() => {
-    const headerKeys = new Set(Object.keys(headers));
-    return (sortableHeaders ?? []).filter((headerKey) =>
-      headerKeys.has(headerKey)
-    );
+    return getValidHeaders(headers, sortableHeaders);
   }, [headers, sortableHeaders]);
+
+  const validSearchableHeaders = useMemo(() => {
+    return getValidHeaders(headers, searchableHeaders);
+  }, [headers, searchableHeaders]);
 
   const handleSort = (key: string) => {
     if (!validSortableHeaders.includes(key)) {
@@ -65,58 +75,56 @@ const TableComponent = ({ params }: TableComponentTypes) => {
     }
   };
 
+  const handleSearchChange = (term: string, key: string) => {
+    setSearchTerm(term);
+    setSearchKey(key);
+    setCurrentPage(1);
+  };
+
   const processedData = useMemo(() => {
-    if (externalSorting || !sortConfig) {
-      return data;
+    let searchProcessedData = data;
+    const normalizedTerm = searchTerm.trim().toLowerCase();
+
+    if (!externalSearch && normalizedTerm.length > 0 && validSearchableHeaders.length > 0) {
+      const targetSearchKeys =
+        searchKey === ALL_SEARCH_KEY || !validSearchableHeaders.includes(searchKey)
+          ? validSearchableHeaders
+          : [searchKey];
+
+      searchProcessedData = data.filter((row) =>
+        targetSearchKeys.some((headerKey) => {
+          const value = row[headerKey];
+
+          if (typeof value === "string" || typeof value === "number") {
+            return String(value).toLowerCase().includes(normalizedTerm);
+          }
+
+          return false;
+        })
+      );
     }
 
-    const decoratedData = data.map((row, index) => ({ row, index }));
+    if (externalSorting || !sortConfig) {
+      return searchProcessedData;
+    }
 
-    decoratedData.sort((left, right) => {
-      const rawLeft = left.row[sortConfig.key];
-      const rawRight = right.row[sortConfig.key];
-      const valueLeft = normalizeSortValue(rawLeft);
-      const valueRight = normalizeSortValue(rawRight);
-      const directionSign = sortConfig.direction === "asc" ? 1 : -1;
+    const decoratedData = searchProcessedData.map((row, index) => ({
+      row,
+      index,
+    }));
 
-      if (valueLeft === null && valueRight === null) {
-        return left.index - right.index;
-      }
+    const sortedData = sortData(decoratedData, sortConfig);
 
-      if (valueLeft === null) {
-        return 1;
-      }
-
-      if (valueRight === null) {
-        return -1;
-      }
-
-      if (typeof valueLeft === "string" || typeof valueRight === "string") {
-        const leftString = String(valueLeft);
-        const rightString = String(valueRight);
-        const compared = leftString.localeCompare(rightString, undefined, {
-          numeric: true,
-          sensitivity: "base",
-        });
-
-        if (compared !== 0) {
-          return compared * directionSign;
-        }
-
-        return left.index - right.index;
-      }
-
-      const compared = valueLeft - valueRight;
-
-      if (compared !== 0) {
-        return compared * directionSign;
-      }
-
-      return left.index - right.index;
-    });
-
-    return decoratedData.map((entry) => entry.row);
-  }, [data, sortConfig, externalSorting]);
+    return sortedData.map((entry) => entry.row);
+  }, [
+    data,
+    externalSearch,
+    externalSorting,
+    searchKey,
+    searchTerm,
+    sortConfig,
+    validSearchableHeaders,
+  ]);
 
   const totalPages = calculateTotalPages(processedData.length, pageSize);
 
@@ -132,6 +140,18 @@ const TableComponent = ({ params }: TableComponentTypes) => {
     }
   }, [currentPage, onPageChangeCallback]);
 
+  useEffect(() => {
+    if (searchKey !== ALL_SEARCH_KEY && !validSearchableHeaders.includes(searchKey)) {
+      setSearchKey(ALL_SEARCH_KEY);
+    }
+  }, [searchKey, validSearchableHeaders]);
+
+  useEffect(() => {
+    if (onSearchCallback) {
+      onSearchCallback(searchTerm, searchKey);
+    }
+  }, [onSearchCallback, searchKey, searchTerm]);
+
   const paginatedData = useMemo(() => {
     return getCurrentPageContent(processedData, pageSize, currentPage);
   }, [processedData, pageSize, currentPage]);
@@ -145,6 +165,15 @@ const TableComponent = ({ params }: TableComponentTypes) => {
         <div className={`table-title ${styles.tableTitle} ${titleClassNames}`}>
           {title}
         </div>
+      )}
+      {showSearchInput && (
+        <SearchComponent
+          headers={headers}
+          validSearchableHeaders={validSearchableHeaders}
+          searchTerm={searchTerm}
+          searchKey={searchKey}
+          onSearchChange={handleSearchChange}
+        />
       )}
       <div className={`table-wrapper ${styles.tableWrapper}`}>
         <table className={`table-element ${styles.tableElement}`}>

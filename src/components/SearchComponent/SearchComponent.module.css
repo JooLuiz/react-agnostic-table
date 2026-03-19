@@ -1,0 +1,88 @@
+.searchContainer {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.searchInput {
+  width: 240px;
+  height: 36px;
+  border: 1px solid var(--table-border);
+  border-radius: 6px;
+  background-color: var(--table-content-bg);
+  color: var(--table-content-text);
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+.searchInput:focus-visible {
+  outline: 2px solid var(--table-header-bg);
+  outline-offset: 1px;
+}
+
+.dropdownWrapper {
+  position: relative;
+}
+
+.dropdownButton {
+  min-width: 180px;
+  height: 36px;
+  border: 1px solid var(--table-border);
+  border-radius: 6px;
+  background-color: var(--table-content-bg);
+  color: var(--table-content-text);
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.dropdownButton:focus-visible {
+  outline: 2px solid var(--table-header-bg);
+  outline-offset: 1px;
+}
+
+.dropdownChevron {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.optionsList {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 100%;
+  border: 1px solid var(--table-border);
+  border-radius: 6px;
+  background-color: var(--table-content-bg);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.18);
+  z-index: 6;
+  overflow: hidden;
+}
+
+.optionItem {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--table-border);
+  background-color: transparent;
+  color: var(--table-content-text);
+  text-align: left;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.optionItem:last-child {
+  border-bottom: 0;
+}
+
+.optionItem:hover {
+  background-color: var(--pagination-hover-bg);
+}
+
+.optionItemActive {
+  background-color: var(--table-header-bg);
+  color: var(--table-header-text);
+}

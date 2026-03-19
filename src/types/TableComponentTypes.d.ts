@@ -13,11 +13,14 @@ interface TableComponentTypes {
     //externalFiltering?: boolean;
     //filters?: FilterOption[];
     //filtersModalPlace?: Locations;
-    //onSearchCallback?(newTerm: string): void;
     //onFilterCallback?(filters: Record<string, string | string[]>): void;
     sortableHeaders?: string[];
     externalSorting?: boolean;
     onSortingCallback?: (sortKey: string, direction: SortDirection | null) => void;
+    showSearchInput?: boolean;
+    searchableHeaders?: string[];
+    externalSearch?: boolean;
+    onSearchCallback?: (searchTerm: string, searchKey: string) => void;
     containerClassNames?: string;
     titleClassNames?: string;
     colorPalette?: TableColorPalette;
