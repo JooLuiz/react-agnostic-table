@@ -70,73 +70,73 @@ export function ExampleTable() {
 
 ### TableComponent root props
 
-| Prop Name  | Prop Type                                                  | Is Mandatory | Default Value | Description |
-| ---------- | ---------------------------------------------------------- | ------------ | ------------- | ----------- |
-| headers    | `Record<string, string>`                                   | true         |               | Maps each object key to a table header label. |
-| data       | `Record<string, number \| string \| React.ReactNode>[]`   | true         |               | Table rows. Keys should match `headers`. |
-| title      | `string`                                                   | false        |               | Optional table title. |
-| pagination | `TablePaginationConfig`                                    | false        | `{}`          | Pagination behavior and callbacks. |
-| sorting    | `TableSortingConfig`                                       | false        | `{}`          | Sorting behavior and callbacks. |
-| search     | `TableSearchConfig`                                        | false        | `{}`          | Search behavior and callbacks. |
-| filter     | `TableFilterConfig`                                        | false        | `{}`          | Filter behavior and callbacks. |
-| styling    | `TableStylingConfig`                                       | false        | `{}`          | Style and theme options. |
+| Prop Name  | Prop Type                                               | Is Mandatory | Default Value | Description                                   |
+| ---------- | ------------------------------------------------------- | ------------ | ------------- | --------------------------------------------- |
+| headers    | `Record<string, string>`                                | true         |               | Maps each object key to a table header label. |
+| data       | `Record<string, number \| string \| React.ReactNode>[]` | true         |               | Table rows. Keys should match `headers`.      |
+| title      | `string`                                                | false        |               | Optional table title.                         |
+| pagination | `TablePaginationConfig`                                 | false        | `{}`          | Pagination behavior and callbacks.            |
+| sorting    | `TableSortingConfig`                                    | false        | `{}`          | Sorting behavior and callbacks.               |
+| search     | `TableSearchConfig`                                     | false        | `{}`          | Search behavior and callbacks.                |
+| filter     | `TableFilterConfig`                                     | false        | `{}`          | Filter behavior and callbacks.                |
+| styling    | `TableStylingConfig`                                    | false        | `{}`          | Style and theme options.                      |
 
 ### `pagination` config (`TablePaginationConfig`)
 
-| Field       | Type                    | Default  | Description |
-| ----------- | ----------------------- | -------- | ----------- |
-| isExternal  | `boolean`               | `false`  | Indicates if pagination state is controlled externally. |
-| currentPage | `number`                | `1`      | Current page for controlled/external pagination. |
-| pageSize    | `number`                | `10`     | Number of rows per page. |
-| totalPages  | `number`                |          | Optional total pages value. |
-| location    | `"right" \| "left" \| "center"` |          | Pagination alignment. |
-| onChange    | `(page: number) => void`|          | Triggered whenever page changes. |
+| Field       | Type                            | Default | Description                                             |
+| ----------- | ------------------------------- | ------- | ------------------------------------------------------- |
+| isExternal  | `boolean`                       | `false` | Indicates if pagination state is controlled externally. |
+| currentPage | `number`                        | `1`     | Current page for controlled/external pagination.        |
+| pageSize    | `number`                        | `10`    | Number of rows per page.                                |
+| totalPages  | `number`                        |         | Optional total pages value.                             |
+| location    | `"right" \| "left" \| "center"` |         | Pagination alignment.                                   |
+| onChange    | `(page: number) => void`        |         | Triggered whenever page changes.                        |
 
 ### `sorting` config (`TableSortingConfig`)
 
-| Field           | Type                                                | Default | Description |
-| --------------- | --------------------------------------------------- | ------- | ----------- |
-| isExternal      | `boolean`                                           | `false` | Indicates if sorting is controlled externally. |
-| sortableHeaders | `string[]`                                          | `[]`    | Keys that are allowed to be sorted. |
-| onSort          | `(sortKey: string, direction: "asc" \| "desc" \| null) => void` |         | Callback for sorting changes. |
+| Field           | Type                                                            | Default | Description                                    |
+| --------------- | --------------------------------------------------------------- | ------- | ---------------------------------------------- |
+| isExternal      | `boolean`                                                       | `false` | Indicates if sorting is controlled externally. |
+| sortableHeaders | `string[]`                                                      | `[]`    | Keys that are allowed to be sorted.            |
+| onSort          | `(sortKey: string, direction: "asc" \| "desc" \| null) => void` |         | Callback for sorting changes.                  |
 
 ### `search` config (`TableSearchConfig`)
 
-| Field             | Type                                              | Default | Description |
-| ----------------- | ------------------------------------------------- | ------- | ----------- |
-| show              | `boolean`                                         | `false` | Shows/hides the search input. |
-| isExternal        | `boolean`                                         | `false` | Indicates if search filtering is controlled externally. |
-| searchableHeaders | `string[]`                                        | `[]`    | Keys that can be searched. |
-| searchAllFieldsLabel | `string`                                      |         | Custom label for the "All" option in search dropdown. |
-| onSearch          | `(searchTerm: string, searchKey: string) => void` |         | Callback with current search term and selected key (`"All"` or a header key). |
+| Field                | Type                                              | Default | Description                                                                   |
+| -------------------- | ------------------------------------------------- | ------- | ----------------------------------------------------------------------------- |
+| show                 | `boolean`                                         | `false` | Shows/hides the search input.                                                 |
+| isExternal           | `boolean`                                         | `false` | Indicates if search filtering is controlled externally.                       |
+| searchableHeaders    | `string[]`                                        | `[]`    | Keys that can be searched.                                                    |
+| searchAllFieldsLabel | `string`                                          |         | Custom label for the "All" option in search dropdown.                         |
+| onSearch             | `(searchTerm: string, searchKey: string) => void` |         | Callback with current search term and selected key (`"All"` or a header key). |
 
 ### `filter` config (`TableFilterConfig`)
 
-| Field             | Type                                           | Default    | Description |
-| ----------------- | ---------------------------------------------- | ---------- | ----------- |
-| show              | `boolean`                                      | `false`    | Shows/hides the filter trigger button. |
-| location          | `"right" \| "left" \| "center"`               | `"center"` | Defines where the filter modal opens (left/right sidebar or centered modal). |
-| filterableHeaders | `FilterableHeader[]`                           | `[]`       | Headers and input types available in the filter modal. |
-| onFilter          | `(filters: ActiveTableFilters) => void`        |            | Callback fired whenever applied filters change. |
-| applyFilterLabel  | `string`                                       | `"Apply"`  | Custom label for the filter apply button. |
-| cancelFilterLabel | `string`                                       | `"Cancel"` | Custom label for the filter cancel button. |
-| title             | `string`                                       | `"Filters"`| Custom title shown in the filter modal. |
+| Field             | Type                                    | Default     | Description                                                                  |
+| ----------------- | --------------------------------------- | ----------- | ---------------------------------------------------------------------------- |
+| show              | `boolean`                               | `false`     | Shows/hides the filter trigger button.                                       |
+| location          | `"right" \| "left" \| "center"`         | `"center"`  | Defines where the filter modal opens (left/right sidebar or centered modal). |
+| filterableHeaders | `FilterableHeader[]`                    | `[]`        | Headers and input types available in the filter modal.                       |
+| onFilter          | `(filters: ActiveTableFilters) => void` |             | Callback fired whenever applied filters change.                              |
+| applyFilterLabel  | `string`                                | `"Apply"`   | Custom label for the filter apply button.                                    |
+| cancelFilterLabel | `string`                                | `"Cancel"`  | Custom label for the filter cancel button.                                   |
+| title             | `string`                                | `"Filters"` | Custom title shown in the filter modal.                                      |
 
 #### `FilterableHeader`
 
-| Field        | Type                                                  | Is Mandatory | Description |
-| ------------ | ----------------------------------------------------- | ------------ | ----------- |
-| id           | `string`                                              | true         | Header key used to bind filter input to row values. |
-| type         | `"input" \| "checkbox" \| "radio" \| "date" \| "datetime"` | true         | Input type rendered for this header in the filter modal. |
-| filterValues | `string[]`                                            | false        | Explicit options for `checkbox` and `radio`; if omitted, values are inferred from table data. |
+| Field        | Type                                                       | Is Mandatory | Description                                                                                   |
+| ------------ | ---------------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------- |
+| id           | `string`                                                   | true         | Header key used to bind filter input to row values.                                           |
+| type         | `"input" \| "checkbox" \| "radio" \| "date" \| "datetime"` | true         | Input type rendered for this header in the filter modal.                                      |
+| filterValues | `string[]`                                                 | false        | Explicit options for `checkbox` and `radio`; if omitted, values are inferred from table data. |
 
 ### `styling` config (`TableStylingConfig`)
 
-| Field               | Type                                | Default   | Description |
-| ------------------- | ----------------------------------- | --------- | ----------- |
-| containerClassNames | `string`                            |           | Custom class names for table wrapper. |
-| titleClassNames     | `string`                            |           | Custom class names for table title. |
-| colorPalette        | `"classic" \| "modernDark" \| "softEarth"` | `"classic"` | Built-in table color palette. |
+| Field               | Type                                       | Default     | Description                           |
+| ------------------- | ------------------------------------------ | ----------- | ------------------------------------- |
+| containerClassNames | `string`                                   |             | Custom class names for table wrapper. |
+| titleClassNames     | `string`                                   |             | Custom class names for table title.   |
+| colorPalette        | `"classic" \| "modernDark" \| "softEarth"` | `"classic"` | Built-in table color palette.         |
 
 ## Exports
 
@@ -172,7 +172,6 @@ import TableComponent, {
 ### Future Enhancements:
 
 - Implement an export action with exportCallback.
-- Implement a general search for a specific field, adjust the searchCallback to receive the field being searched.
 
 ## Contributing
 

@@ -2,43 +2,8 @@ import { useMemo, useState } from "react";
 import PrettyIcons from "js-pretty-icons";
 
 import styles from "./FilterComponent.module.css";
-
-const normalizeFilters = (filters: ActiveTableFilters) => {
-  return Object.entries(filters).reduce<ActiveTableFilters>((acc, [key, value]) => {
-    if (Array.isArray(value)) {
-      if (value.length > 0) {
-        acc[key] = value;
-      }
-
-      return acc;
-    }
-
-    const normalizedValue = value.trim();
-
-    if (normalizedValue.length > 0) {
-      acc[key] = normalizedValue;
-    }
-
-    return acc;
-  }, {});
-};
-
-const getSelectableValuesFromData = (
-  data: Record<string, number | string | React.ReactNode>[],
-  key: string
-) => {
-  const values = data.reduce<string[]>((acc, row) => {
-    const rowValue = row[key];
-
-    if (typeof rowValue === "string" || typeof rowValue === "number") {
-      acc.push(String(rowValue));
-    }
-
-    return acc;
-  }, []);
-
-  return Array.from(new Set(values));
-};
+import getSelectableValuesFromData from "../../utils/getSelectableValuesFromData";
+import normalizeFilters from "../../utils/normalizeFilters";
 
 const FilterComponent = ({
   headers,

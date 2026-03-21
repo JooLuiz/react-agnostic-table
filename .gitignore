@@ -1,2 +1,4 @@
 node_modules
 dist
+# Local Cursor settings/rules are intentionally not versioned.
+.cursor/
