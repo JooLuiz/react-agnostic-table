@@ -1,10 +1,12 @@
 import styles from "./PaginationComponent.module.css";
 import PrettyIcons from "js-pretty-icons"
 
-const PaginationComponent = ({ params }: PaginationComponentTypes) => {
-  const { totalPages, currentPage, onPageChange, paginationLocation = "center" } =
-    params;
-
+const PaginationComponent = ({
+  totalPages,
+  currentPage,
+  onPageChange,
+  paginationLocation = "center",
+}: PaginationComponentProps) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= totalPages; i++) {

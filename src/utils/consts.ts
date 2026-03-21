@@ -1,0 +1,4 @@
+const ALL_SEARCH_OPTION = "All";
+const ALL_SEARCH_KEY = "All";
+
+export { ALL_SEARCH_OPTION, ALL_SEARCH_KEY };	

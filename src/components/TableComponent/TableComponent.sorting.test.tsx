@@ -15,15 +15,13 @@ describe("TableComponent sorting icon states", () => {
   it("highlights only one arrow per sort step and dims both when unsorted", () => {
     render(
       <TableComponent
-        params={{
-          headers: { name: "Nome", age: "Age" },
-          data: [
-            { name: "Carlos", age: 30 },
-            { name: "Ana", age: 20 },
-          ],
-          sortableHeaders: ["name"],
-          pageSize: 10,
-        }}
+        headers={{ name: "Nome", age: "Age" }}
+        data={[
+          { name: "Carlos", age: 30 },
+          { name: "Ana", age: 20 },
+        ]}
+        sorting={{ sortableHeaders: ["name"] }}
+        pagination={{ pageSize: 10 }}
       />
     );
 

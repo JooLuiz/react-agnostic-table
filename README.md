@@ -4,30 +4,156 @@ React Agnostic Table is an agnostic table component that can be used in a lot of
 
 **Npm Package:** [react-agnostic-table - npm](https://www.npmjs.com/package/react-agnostic-table)
 
-## Instalation
+## Installation
+
+Install the package from npm:
+
+```bash
+npm i react-agnostic-table
+```
+
+## Examples
+
+Import the default `TableComponent` and pass `headers`, `data`, and any optional configs:
+
+```tsx
+import TableComponent from "react-agnostic-table";
+
+const headers = {
+  name: "Name",
+  age: "Age",
+  group: "Group",
+  isActive: "Active",
+};
+
+const data = [
+  { name: "Ana", age: 30, group: "A", isActive: "yes" },
+  { name: "Carlos", age: 25, group: "B", isActive: "no" },
+];
+
+const title = "Example table";
+
+export function ExampleTable() {
+  return (
+    <TableComponent
+      headers={headers}
+      data={data}
+      title={title}
+      pagination={{ location: "center" }}
+      sorting={{ sortableHeaders: ["name", "age"] }}
+      search={{
+        show: true,
+        searchableHeaders: ["name", "age"],
+        searchAllFieldsLabel: "All",
+      }}
+      styling={{ colorPalette: "softEarth" }}
+      filter={{
+        show: true,
+        filterableHeaders: [
+          { id: "name", type: "input" },
+          { id: "age", type: "input" },
+          { id: "group", type: "checkbox" },
+          { id: "isActive", type: "radio" },
+        ],
+        location: "left",
+        applyFilterLabel: "Apply",
+        cancelFilterLabel: "Cancel",
+      }}
+    />
+  );
+}
+```
 
 ## Input Props:
 
-Every prop must be send in a single “params” prop, that is a JSON Object.
+`TableComponent` receives props directly.
 
-| **Prop Name**        | **Prop Type**                                                                                                       | **Is Mandatory** | Default Value                     | Description                                                                                                                                                                                                                                                                                                                                                                                            |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------- | ---------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| headers              | Record<string, string>                                                                                              | true             |                                   | **Headers** is a JSON object in which each object property is used to map the data associated to it. The value of the property will be used to fill the Header cell for each prop.                                                                                                                                                                                                                     |
-| data                 | Record<string, number \| string \| React.ReactNode>[]                                                               | true             |                                   | **Data** is an array of JSON Objects that will be mapped according to the `header` object properties. The values can be a string, a number or a ReactNode.                                                                                                                                                                                                                                             |
-| title                | string                                                                                                              | false            |                                   | **Title** is a string and will be displayed above the table when present.                                                                                                                                                                                                                                                                                                                              |
-| externalPagination   | boolean                                                                                                             | false            | false                             | **ExternalPagination** indicates if the data pagination must be done by the table component or external to it. Usually external pagination is prefered, in special to perform server-side pagination.                                                                                                                                                                                                  |
-| currentPage          | number                                                                                                              | false            | 1                                 | **CurrentPage** is the page to be loaded. When `externalPagination` is `false` it is used to indicate which page to load on initial rendering. When `externalPagination` is `true` it is used to indicate the current page in the bottom pagination numbers.                                                                                                                                           |
-| pageSize             | number                                                                                                              | false            | 10                                | **PageSize** indicates the amount of records shown per page. It will only be considered when doing the pagination on the component side (`externalPagination: false`).                                                                                                                                                                                                                                 |
-| totalPages           | number                                                                                                              | false            | Math.ceil(data.length / pageSize) | **TotalPages** indicates the total number of pages for that table data. If not sent and pagination is marked to be done by the component (`externalPagination: false`), it is calculated internally based on the `data.length` and on the `pageSize`.                                                                                                                                                  |
-| onPageChangeCallback | (page: number) => void;                                                                                             | false            |                                   | **OnPageChangeCallback** is a function to deal with page change outside of the component. It receives the new page value as a param. It will also trigger on “first page”, “previous page”, “next page” and “last page” buttons, dealing with calculating the proper page to be indicated.This prop is usually used for server-side pagination.                                                        |
-| isFilterable         | boolean                                                                                                             | false            | true                              | **isFilterable** indicates if the table content can be filtered or not. By indicating that it is filterable the search input and the “Filter” button shows up, otherwise they are hidden.                                                                                                                                                                                                              |
-| externalFiltering    | boolean                                                                                                             | false            | false                             | **ExternalFiltering** indicates if the data filtering must be done by the table component or external to it. Usually external filtering is prefered, in special to perform server-side pagination. Filtering will only consider current received data in `data` prop.                                                                                                                                  |
-| filters              | { key: string; label: string; type: "checkbox"\| "date" \| "input" \| "dropdown" \| "radio"; values?: string[] } [] | false            |                                   | **Filters** is an array of JSON objects that indicated the fields that can be filtered and the type of search that will be done. The avaiable filter types are “input”, “select”, “checkbox”, “date” and “dateRange”. If the filtering is done by the component the JSON prop must match the props sent in `header` prop. If done externally, the list of filters will return the same props received. |
-| filtersModalPlace    | “right” \| “left” \| “center”                                                                                       | false            | “left”                            | **FiltersModalPlace** indicates where the filters modal will show up. The accepted values are “left”, “right” or “center”.                                                                                                                                                                                                                                                                             |
-| onSearchCallback     | (newTerm: string) => void;                                                                                          | false            |                                   | **OnSearchCallback** is a function to deal with search change outside of the component. It receives the current searchTerm being searched as a param. This prop is usually used for server-side filtering.                                                                                                                                                                                             |
-| onFilterCallback     | (filters: Record<string, string \| string[]>) => void;                                                              | false            |                                   | **OnFilterCallback** is a function to deal with filter change outside of the component. It receives a JSON Object with the current filters, in which the prop is the field being searched and the value the search to be applied as a param. This prop is usually used for server-side filtering.                                                                                                      |
-| containerClassNames  | string                                                                                                              | false            |                                   | **ContainerClassNames** is a string, and it’s value will be attached to the table external HTML classes in order to implement custom stylization.                                                                                                                                                                                                                                                      |
-| titleClassNames      | string                                                                                                              | false            |                                   | **TitleClassNames** is a string and it’s value will be attached to the table title HTML classes in order to implement custom stylization.                                                                                                                                                                                                                                                              |
+### TableComponent root props
+
+| Prop Name  | Prop Type                                                  | Is Mandatory | Default Value | Description |
+| ---------- | ---------------------------------------------------------- | ------------ | ------------- | ----------- |
+| headers    | `Record<string, string>`                                   | true         |               | Maps each object key to a table header label. |
+| data       | `Record<string, number \| string \| React.ReactNode>[]`   | true         |               | Table rows. Keys should match `headers`. |
+| title      | `string`                                                   | false        |               | Optional table title. |
+| pagination | `TablePaginationConfig`                                    | false        | `{}`          | Pagination behavior and callbacks. |
+| sorting    | `TableSortingConfig`                                       | false        | `{}`          | Sorting behavior and callbacks. |
+| search     | `TableSearchConfig`                                        | false        | `{}`          | Search behavior and callbacks. |
+| filter     | `TableFilterConfig`                                        | false        | `{}`          | Filter behavior and callbacks. |
+| styling    | `TableStylingConfig`                                       | false        | `{}`          | Style and theme options. |
+
+### `pagination` config (`TablePaginationConfig`)
+
+| Field       | Type                    | Default  | Description |
+| ----------- | ----------------------- | -------- | ----------- |
+| isExternal  | `boolean`               | `false`  | Indicates if pagination state is controlled externally. |
+| currentPage | `number`                | `1`      | Current page for controlled/external pagination. |
+| pageSize    | `number`                | `10`     | Number of rows per page. |
+| totalPages  | `number`                |          | Optional total pages value. |
+| location    | `"right" \| "left" \| "center"` |          | Pagination alignment. |
+| onChange    | `(page: number) => void`|          | Triggered whenever page changes. |
+
+### `sorting` config (`TableSortingConfig`)
+
+| Field           | Type                                                | Default | Description |
+| --------------- | --------------------------------------------------- | ------- | ----------- |
+| isExternal      | `boolean`                                           | `false` | Indicates if sorting is controlled externally. |
+| sortableHeaders | `string[]`                                          | `[]`    | Keys that are allowed to be sorted. |
+| onSort          | `(sortKey: string, direction: "asc" \| "desc" \| null) => void` |         | Callback for sorting changes. |
+
+### `search` config (`TableSearchConfig`)
+
+| Field             | Type                                              | Default | Description |
+| ----------------- | ------------------------------------------------- | ------- | ----------- |
+| show              | `boolean`                                         | `false` | Shows/hides the search input. |
+| isExternal        | `boolean`                                         | `false` | Indicates if search filtering is controlled externally. |
+| searchableHeaders | `string[]`                                        | `[]`    | Keys that can be searched. |
+| searchAllFieldsLabel | `string`                                      |         | Custom label for the "All" option in search dropdown. |
+| onSearch          | `(searchTerm: string, searchKey: string) => void` |         | Callback with current search term and selected key (`"All"` or a header key). |
+
+### `filter` config (`TableFilterConfig`)
+
+| Field             | Type                                           | Default    | Description |
+| ----------------- | ---------------------------------------------- | ---------- | ----------- |
+| show              | `boolean`                                      | `false`    | Shows/hides the filter trigger button. |
+| location          | `"right" \| "left" \| "center"`               | `"center"` | Defines where the filter modal opens (left/right sidebar or centered modal). |
+| filterableHeaders | `FilterableHeader[]`                           | `[]`       | Headers and input types available in the filter modal. |
+| onFilter          | `(filters: ActiveTableFilters) => void`        |            | Callback fired whenever applied filters change. |
+| applyFilterLabel  | `string`                                       | `"Apply"`  | Custom label for the filter apply button. |
+| cancelFilterLabel | `string`                                       | `"Cancel"` | Custom label for the filter cancel button. |
+| title             | `string`                                       | `"Filters"`| Custom title shown in the filter modal. |
+
+#### `FilterableHeader`
+
+| Field        | Type                                                  | Is Mandatory | Description |
+| ------------ | ----------------------------------------------------- | ------------ | ----------- |
+| id           | `string`                                              | true         | Header key used to bind filter input to row values. |
+| type         | `"input" \| "checkbox" \| "radio" \| "date" \| "datetime"` | true         | Input type rendered for this header in the filter modal. |
+| filterValues | `string[]`                                            | false        | Explicit options for `checkbox` and `radio`; if omitted, values are inferred from table data. |
+
+### `styling` config (`TableStylingConfig`)
+
+| Field               | Type                                | Default   | Description |
+| ------------------- | ----------------------------------- | --------- | ----------- |
+| containerClassNames | `string`                            |           | Custom class names for table wrapper. |
+| titleClassNames     | `string`                            |           | Custom class names for table title. |
+| colorPalette        | `"classic" \| "modernDark" \| "softEarth"` | `"classic"` | Built-in table color palette. |
+
+## Exports
+
+This library exports:
+
+- Default export: `TableComponent`
+- Named export: `PaginationComponent`
+- Named export: `SearchComponent`
+- Named export: `FilterComponent`
+
+```typescript
+import TableComponent, {
+  PaginationComponent,
+  SearchComponent,
+  FilterComponent,
+} from "react-agnostic-table";
+```
 
 ### Usage Architecture:
 

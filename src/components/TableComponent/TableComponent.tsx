@@ -4,42 +4,88 @@ import styles from "./TableComponent.module.css";
 import themes from "../../themes/themes.module.css";
 
 import PaginationComponent from "../PaginationComponent";
+import SearchComponent from "../SearchComponent";
+import FilterComponent from "../FilterComponent";
 
 import renderHeaders from "../../utils/renderHeaders";
 import renderBody from "../../utils/renderBody";
 import calculateTotalPages from "../../utils/calculateTotalPages";
 import getCurrentPageContent from "../../utils/getCurrentPageContent";
-import normalizeSortValue from "../../utils/normalizeSortValue";
+import sortData from "../../utils/sortData";
+import getValidHeaders from "../../utils/getValidHeaders";
+import { ALL_SEARCH_KEY } from "../../utils/consts";
 
-const TableComponent = ({ params }: TableComponentTypes) => {
+const TableComponent = ({
+  data,
+  headers,
+  title,
+  pagination = {},
+  sorting = {},
+  search = {},
+  filter = {},
+  styling = {},
+}: TableComponentProps) => {
   const {
-    data,
     pageSize = 10,
     currentPage: paramCurrentPage = 1,
-    headers,
-    title,
-    titleClassNames,
-    containerClassNames,
-    paginationLocation,
-    externalPagination = false,
-    onPageChangeCallback,
+    location: paginationLocation,
+    isExternal: isExternalPagination = false,
+    onChange: onPaginationChange,
+  } = pagination;
+
+  const {
     sortableHeaders,
-    externalSorting = false,
-    onSortingCallback,
+    isExternal: isExternalSorting = false,
+    onSort: onSortingCallback,
+  } = sorting;
+
+  const {
+    show: showSearchInput = false,
+    searchableHeaders,
+    isExternal: isExternalSearch = false,
+    onSearch: onSearchCallback,
+    searchAllFieldsLabel,
+  } = search;
+
+  const {
+    show: showFilterInput = false,
+    location: filterLocation = "center",
+    filterableHeaders = [],
+    onFilter: onFilterCallback,
+    applyFilterLabel,
+    cancelFilterLabel,
+    title: filterTitle
+  } = filter;
+
+  const {
+    containerClassNames,
+    titleClassNames,
     colorPalette = "classic",
-  } = params;
+  } = styling;
+
   const [currentPage, setCurrentPage] = useState(
     Math.max(paramCurrentPage, 1)
   );
 
   const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchKey, setSearchKey] = useState(ALL_SEARCH_KEY);
+  const [activeFilters, setActiveFilters] = useState<ActiveTableFilters>({});
 
   const validSortableHeaders = useMemo(() => {
-    const headerKeys = new Set(Object.keys(headers));
-    return (sortableHeaders ?? []).filter((headerKey) =>
-      headerKeys.has(headerKey)
-    );
+    return getValidHeaders(headers, sortableHeaders);
   }, [headers, sortableHeaders]);
+
+  const validSearchableHeaders = useMemo(() => {
+    return getValidHeaders(headers, searchableHeaders);
+  }, [headers, searchableHeaders]);
+
+  const validFilterableHeaders = useMemo(() => {
+    const requestedFilterHeaders = filterableHeaders.map(({ id }) => id);
+    const validFilterHeaderIds = getValidHeaders(headers, requestedFilterHeaders);
+
+    return filterableHeaders.filter(({ id }) => validFilterHeaderIds.includes(id));
+  }, [filterableHeaders, headers]);
 
   const handleSort = (key: string) => {
     if (!validSortableHeaders.includes(key)) {
@@ -65,72 +111,159 @@ const TableComponent = ({ params }: TableComponentTypes) => {
     }
   };
 
+  const handleSearchChange = (term: string, key: string) => {
+    setSearchTerm(term);
+    setSearchKey(key);
+    setCurrentPage(1);
+  };
+
+  const handleFilterApply = (filters: ActiveTableFilters) => {
+    setActiveFilters(filters);
+    setCurrentPage(1);
+  };
+
   const processedData = useMemo(() => {
-    if (externalSorting || !sortConfig) {
-      return data;
+    let filterProcessedData = data;
+
+    if (Object.keys(activeFilters).length > 0 && validFilterableHeaders.length > 0) {
+      filterProcessedData = data.filter((row) =>
+        validFilterableHeaders.every(({ id, type }) => {
+          const filterValue = activeFilters[id];
+
+          if (filterValue === undefined) {
+            return true;
+          }
+
+          const rowValue = row[id];
+          const normalizedRowValue =
+            typeof rowValue === "string" || typeof rowValue === "number"
+              ? String(rowValue).toLowerCase()
+              : "";
+
+          if (type === "checkbox") {
+            if (!Array.isArray(filterValue) || filterValue.length === 0) {
+              return true;
+            }
+
+            return filterValue.some((value) => normalizedRowValue === value.toLowerCase());
+          }
+
+          if (type === "radio") {
+            if (typeof filterValue !== "string") {
+              return true;
+            }
+
+            return normalizedRowValue === filterValue.toLowerCase();
+          }
+
+          if (typeof filterValue !== "string") {
+            return true;
+          }
+
+          return normalizedRowValue.includes(filterValue.toLowerCase());
+        })
+      );
     }
 
-    const decoratedData = data.map((row, index) => ({ row, index }));
+    let searchProcessedData = filterProcessedData;
+    const normalizedTerm = searchTerm.trim().toLowerCase();
 
-    decoratedData.sort((left, right) => {
-      const rawLeft = left.row[sortConfig.key];
-      const rawRight = right.row[sortConfig.key];
-      const valueLeft = normalizeSortValue(rawLeft);
-      const valueRight = normalizeSortValue(rawRight);
-      const directionSign = sortConfig.direction === "asc" ? 1 : -1;
+    if (!isExternalSearch && normalizedTerm.length > 0 && validSearchableHeaders.length > 0) {
+      const targetSearchKeys =
+        searchKey === ALL_SEARCH_KEY || !validSearchableHeaders.includes(searchKey)
+          ? validSearchableHeaders
+          : [searchKey];
 
-      if (valueLeft === null && valueRight === null) {
-        return left.index - right.index;
-      }
+      searchProcessedData = filterProcessedData.filter((row) =>
+        targetSearchKeys.some((headerKey) => {
+          const value = row[headerKey];
 
-      if (valueLeft === null) {
-        return 1;
-      }
+          if (typeof value === "string" || typeof value === "number") {
+            return String(value).toLowerCase().includes(normalizedTerm);
+          }
 
-      if (valueRight === null) {
-        return -1;
-      }
+          return false;
+        })
+      );
+    }
 
-      if (typeof valueLeft === "string" || typeof valueRight === "string") {
-        const leftString = String(valueLeft);
-        const rightString = String(valueRight);
-        const compared = leftString.localeCompare(rightString, undefined, {
-          numeric: true,
-          sensitivity: "base",
-        });
+    if (isExternalSorting || !sortConfig) {
+      return searchProcessedData;
+    }
 
-        if (compared !== 0) {
-          return compared * directionSign;
-        }
+    const decoratedData = searchProcessedData.map((row, index) => ({
+      row,
+      index,
+    }));
 
-        return left.index - right.index;
-      }
+    const sortedData = sortData(decoratedData, sortConfig);
 
-      const compared = valueLeft - valueRight;
-
-      if (compared !== 0) {
-        return compared * directionSign;
-      }
-
-      return left.index - right.index;
-    });
-
-    return decoratedData.map((entry) => entry.row);
-  }, [data, sortConfig, externalSorting]);
+    return sortedData.map((entry) => entry.row);
+  }, [
+    activeFilters,
+    data,
+    isExternalSearch,
+    isExternalSorting,
+    searchKey,
+    searchTerm,
+    sortConfig,
+    validFilterableHeaders,
+    validSearchableHeaders,
+  ]);
 
   const totalPages = calculateTotalPages(processedData.length, pageSize);
 
   useEffect(() => {
-    if (externalPagination) {
+    if (isExternalPagination) {
       setCurrentPage(paramCurrentPage);
     }
-  }, [paramCurrentPage, externalPagination]);
+  }, [paramCurrentPage, isExternalPagination]);
 
   useEffect(() => {
-    if (onPageChangeCallback) {
-      onPageChangeCallback(currentPage);
+    if (onPaginationChange) {
+      onPaginationChange(currentPage);
     }
-  }, [currentPage, onPageChangeCallback]);
+  }, [currentPage, onPaginationChange]);
+
+  useEffect(() => {
+    if (searchKey !== ALL_SEARCH_KEY && !validSearchableHeaders.includes(searchKey)) {
+      setSearchKey(ALL_SEARCH_KEY);
+    }
+  }, [searchKey, validSearchableHeaders]);
+
+  useEffect(() => {
+    setActiveFilters((currentFilters) => {
+      const validFilterIds = new Set(validFilterableHeaders.map(({ id }) => id));
+      let hasChanges = false;
+
+      const nextFilters = Object.entries(currentFilters).reduce<ActiveTableFilters>(
+        (acc, [key, value]) => {
+          if (validFilterIds.has(key)) {
+            acc[key] = value;
+          } else {
+            hasChanges = true;
+          }
+
+          return acc;
+        },
+        {}
+      );
+
+      return hasChanges ? nextFilters : currentFilters;
+    });
+  }, [validFilterableHeaders]);
+
+  useEffect(() => {
+    if (onSearchCallback) {
+      onSearchCallback(searchTerm, searchKey);
+    }
+  }, [onSearchCallback, searchKey, searchTerm]);
+
+  useEffect(() => {
+    if (onFilterCallback) {
+      onFilterCallback(activeFilters);
+    }
+  }, [activeFilters, onFilterCallback]);
 
   const paginatedData = useMemo(() => {
     return getCurrentPageContent(processedData, pageSize, currentPage);
@@ -144,6 +277,34 @@ const TableComponent = ({ params }: TableComponentTypes) => {
       {title && (
         <div className={`table-title ${styles.tableTitle} ${titleClassNames}`}>
           {title}
+        </div>
+      )}
+      {(showSearchInput || showFilterInput) && (
+        <div className={styles.searchAndFilterWrapper}>
+          {showSearchInput && (
+            <SearchComponent
+              headers={headers}
+              validSearchableHeaders={validSearchableHeaders}
+              searchTerm={searchTerm}
+              searchKey={searchKey}
+              onSearchChange={handleSearchChange}
+              searchAllFieldsLabel={searchAllFieldsLabel}
+            />
+          )}
+
+          {showFilterInput && (
+            <FilterComponent
+              headers={headers}
+              data={data}
+              filterableHeaders={validFilterableHeaders}
+              location={filterLocation}
+              appliedFilters={activeFilters}
+              onApply={handleFilterApply}
+              applyFilterLabel={applyFilterLabel}
+              cancelFilterLabel={cancelFilterLabel}
+              title={filterTitle}
+            />
+          )}
         </div>
       )}
       <div className={`table-wrapper ${styles.tableWrapper}`}>
@@ -163,14 +324,12 @@ const TableComponent = ({ params }: TableComponentTypes) => {
         </table>
       </div>
       {
-        !externalPagination && (
+        !isExternalPagination && (
           <PaginationComponent
-            params={{
-              currentPage: currentPage ?? 0,
-              totalPages: totalPages,
-              paginationLocation,
-              onPageChange: setCurrentPage,
-            }}
+            currentPage={currentPage ?? 0}
+            totalPages={totalPages}
+            paginationLocation={paginationLocation}
+            onPageChange={setCurrentPage}
           />
         )
       }
