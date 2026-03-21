@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import PrettyIcons from "js-pretty-icons"
 
 import styles from "./SearchComponent.module.css";
 import { ALL_SEARCH_OPTION } from "../../utils/consts";
@@ -9,13 +10,16 @@ const SearchComponent = ({
   searchTerm,
   searchKey,
   onSearchChange,
+  searchAllFieldsLabel,
 }: SearchComponentProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const allSeachLabel = searchAllFieldsLabel ?? ALL_SEARCH_OPTION;
+
   const options = useMemo(
     () => [
-      { key: ALL_SEARCH_OPTION, label: ALL_SEARCH_OPTION },
+      { key: ALL_SEARCH_OPTION, label: allSeachLabel },
       ...validSearchableHeaders.map((headerKey) => ({
         key: headerKey,
         label: headers[headerKey] ?? headerKey,
@@ -26,7 +30,7 @@ const SearchComponent = ({
 
   const selectedOptionLabel = useMemo(() => {
     return (
-      options.find((option) => option.key === searchKey)?.label ?? ALL_SEARCH_OPTION
+      options.find((option) => option.key === searchKey)?.label ?? allSeachLabel
     );
   }, [options, searchKey]);
 
@@ -75,7 +79,7 @@ const SearchComponent = ({
           onClick={() => setIsDropdownOpen((isOpen) => !isOpen)}
         >
           <span>{selectedOptionLabel}</span>
-          <span className={styles.dropdownChevron}>v</span>
+          <span className={styles.dropdownChevron}><PrettyIcons icon="chevron-down" width={16} height={16} /></span>
         </button>
 
         {isDropdownOpen && (

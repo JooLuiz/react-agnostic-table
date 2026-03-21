@@ -86,3 +86,8 @@
   background-color: var(--table-header-bg);
   color: var(--table-header-text);
 }
+
+.optionItemActive:hover {
+  background-color: var(--table-header-bg);
+  color: var(--table-header-text);
+}

@@ -1,0 +1,172 @@
+.filterContainer {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.filterTrigger {
+  height: 36px;
+  width: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--table-border);
+  border-radius: 6px;
+  background-color: var(--table-content-bg);
+  color: var(--table-content-text);
+  cursor: pointer;
+}
+
+.filterTrigger svg path {
+  stroke: var(--table-content-text);
+}
+
+.filterTrigger:hover {
+  background-color: var(--pagination-hover-bg);
+}
+
+.filterTrigger:focus-visible {
+  outline: 2px solid var(--table-header-bg);
+  outline-offset: 1px;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.modalPanel {
+  background-color: var(--table-content-bg);
+  color: var(--table-content-text);
+  border: 1px solid var(--table-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.modalDialog {
+  width: min(600px, 92vw);
+  max-height: 85vh;
+  border-radius: 10px;
+}
+
+.modalSidebar {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: min(420px, 90vw);
+  max-height: 100vh;
+}
+
+.modalTitle {
+  font-size: 18px;
+  font-weight: 600;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--table-border);
+}
+
+.modalLeft {
+  left: 0;
+}
+
+.modalRight {
+  right: 0;
+}
+
+.modalCenter {
+  position: relative;
+}
+
+.modalContent {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.filterField {
+  margin-bottom: 16px;
+}
+
+.filterLabel {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.filterInput {
+  width: 100%;
+  height: 36px;
+  border: 1px solid var(--table-border);
+  border-radius: 6px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  background-color: var(--table-content-bg);
+  color: var(--table-content-text);
+}
+
+.filterChoices {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.choiceLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.emptyOptions {
+  font-size: 13px;
+  opacity: 0.75;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--table-border);
+  padding: 14px 20px;
+  gap: 24px;
+}
+
+[data-is-sidebar="false"] .modalFooter {
+  display: flex;
+  justify-content: flex-end;
+}
+
+[data-is-sidebar="true"] .modalFooter .cancelButton,
+[data-is-sidebar="true"] .modalFooter .applyButton {
+  width: -webkit-fill-available;
+}
+
+.cancelButton,
+.applyButton {
+  min-width: 88px;
+  height: 34px;
+  border-radius: 6px;
+  border: 1px solid var(--table-border);
+  background-color: var(--pagination-default-bg);
+  color: var(--pagination-default-text);
+  cursor: pointer;
+}
+
+.cancelButton:hover,
+.applyButton:hover {
+  background-color: var(--pagination-hover-bg);
+}
+
+.applyButton {
+  background-color: var(--table-header-bg);
+  color: var(--table-header-text);
+  border-color: var(--table-header-bg);
+}
+
+.applyButton:hover {
+  background-color: var(--table-header-hover-bg);
+}

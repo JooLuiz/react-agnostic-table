@@ -17,6 +17,13 @@
   font-weight: 700;
 }
 
+.searchAndFilterWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
 .tableWrapper {
   margin-top: 24px;
   border-radius: 8px;

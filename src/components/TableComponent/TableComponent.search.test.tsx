@@ -6,16 +6,16 @@ describe("TableComponent search", () => {
   it("filters rows internally with All across searchable headers", () => {
     render(
       <TableComponent
-        params={{
-          headers: { name: "Name", city: "City" },
-          data: [
-            { name: "Ana", city: "Porto" },
-            { name: "Carlos", city: "Lisbon" },
-          ],
-          showSearchInput: true,
+        headers={{ name: "Name", city: "City" }}
+        data={[
+          { name: "Ana", city: "Porto" },
+          { name: "Carlos", city: "Lisbon" },
+        ]}
+        search={{
+          show: true,
           searchableHeaders: ["name", "city"],
-          pageSize: 10,
         }}
+        pagination={{ pageSize: 10 }}
       />
     );
 
@@ -33,18 +33,18 @@ describe("TableComponent search", () => {
 
     render(
       <TableComponent
-        params={{
-          headers: { name: "Name", city: "City" },
-          data: [
-            { name: "Ana", city: "Porto" },
-            { name: "Carlos", city: "Lisbon" },
-          ],
-          showSearchInput: true,
+        headers={{ name: "Name", city: "City" }}
+        data={[
+          { name: "Ana", city: "Porto" },
+          { name: "Carlos", city: "Lisbon" },
+        ]}
+        search={{
+          show: true,
           searchableHeaders: ["name", "city"],
-          externalSearch: true,
-          onSearchCallback,
-          pageSize: 10,
+          isExternal: true,
+          onSearch: onSearchCallback,
         }}
+        pagination={{ pageSize: 10 }}
       />
     );
 
