@@ -103,7 +103,7 @@ const FilterComponent = ({
         className={styles.filterTrigger}
         onClick={openModal}
       >
-        <PrettyIcons icon="search" width={16} height={16} />
+        <PrettyIcons icon="filter" width={16} height={16} />
       </button>
 
       {appliedFilters && Object.keys(appliedFilters).length > 0 && (
@@ -113,7 +113,7 @@ const FilterComponent = ({
           className={styles.filterTrigger}
           onClick={clearFilters}
         >
-          <PrettyIcons icon="half-star" width={16} height={16} />
+          <PrettyIcons icon="close" width={16} height={16} />
         </button>
       )}
 

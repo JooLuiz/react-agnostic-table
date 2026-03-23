@@ -44,8 +44,7 @@ const PaginationComponent = ({
           disabled={currentPage === 1}
           className={`pagination-button-first ${styles.paginationButton}`}
         >
-          <PrettyIcons icon="chevron-left" width={16} height={16} />
-          <PrettyIcons icon="chevron-left" width={16} height={16} />
+          <PrettyIcons icon="double-chevron-left" width={16} height={16} />
         </button>
         <button
           aria-label="Previous Page"
@@ -83,8 +82,7 @@ const PaginationComponent = ({
           disabled={currentPage === totalPages}
           className={`pagination-button-last ${styles.paginationButton}`}
         >
-          <PrettyIcons icon="chevron-right" width={16} height={16} />
-          <PrettyIcons icon="chevron-right" width={16} height={16} />
+          <PrettyIcons icon="double-chevron-right" width={16} height={16} />
         </button>
       </div>
     </div>
