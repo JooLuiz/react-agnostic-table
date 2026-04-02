@@ -1,4 +1,5 @@
 node_modules
 dist
+coverage
 # Local Cursor settings/rules are intentionally not versioned.
 .cursor/

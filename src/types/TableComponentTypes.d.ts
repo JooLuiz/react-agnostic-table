@@ -21,6 +21,8 @@ interface TableSearchConfig {
   searchAllFieldsLabel?: string;
 }
 
+type TableRowData = Record<string, number | string | React.ReactNode>;
+
 interface FilterableHeader {
   id: string;
   type: "input" | "checkbox" | "radio" | "date" | "datetime";
@@ -40,6 +42,13 @@ interface TableFilterConfig {
   title?: string;
 }
 
+interface TableExportConfig {
+  show?: boolean;
+  onExport?: (data: TableRowData[]) => void;
+  exportLabel?: string;
+  fileName?: string;
+}
+
 interface TableStylingConfig {
   containerClassNames?: string;
   titleClassNames?: string;
@@ -48,12 +57,13 @@ interface TableStylingConfig {
 
 interface TableComponentProps {
   headers: Record<string, string>;
-  data: Record<string, number | string | React.ReactNode>[];
+  data: TableRowData[];
   title?: string;
   pagination?: TablePaginationConfig;
   sorting?: TableSortingConfig;
   search?: TableSearchConfig;
   filter?: TableFilterConfig;
+  export?: TableExportConfig;
   styling?: TableStylingConfig;
 }
 

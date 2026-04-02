@@ -1,6 +1,6 @@
 # react-agnostic-table
 
-React Agnostic Table is an agnostic table component that can be used in a lot of different scenarios. The component allows the user to send all data and will deal with pagination, filtering and search. The component can also trigger pagination, filtering and search callbacks in case a server side data search is necessary. Every part of the table receives custom classes so the table is 100% customizable.
+React Agnostic Table is an agnostic table component that can be used in a lot of different scenarios. The component allows the user to send all data and will deal with pagination, filtering, search, and CSV export. The component can also trigger pagination, filtering, search, and export callbacks in case server side behavior is necessary. Every part of the table receives custom classes so the table is 100% customizable.
 
 **Npm Package:** [react-agnostic-table - npm](https://www.npmjs.com/package/react-agnostic-table)
 
@@ -11,6 +11,22 @@ Install the package from npm:
 ```bash
 npm i react-agnostic-table
 ```
+
+## Testing
+
+Run all tests:
+
+```bash
+npm test
+```
+
+Run tests with coverage:
+
+```bash
+npm run test:coverage
+```
+
+The coverage command prints percentage metrics in the terminal (Statements, Branches, Functions, and Lines) and also writes HTML and LCOV reports into the `coverage/` folder.
 
 ## Examples
 
@@ -59,6 +75,11 @@ export function ExampleTable() {
         applyFilterLabel: "Apply",
         cancelFilterLabel: "Cancel",
       }}
+      export={{
+        show: true,
+        exportLabel: "Export CSV",
+        fileName: "users-report",
+      }}
     />
   );
 }
@@ -79,6 +100,7 @@ export function ExampleTable() {
 | sorting    | `TableSortingConfig`                                    | false        | `{}`          | Sorting behavior and callbacks.               |
 | search     | `TableSearchConfig`                                     | false        | `{}`          | Search behavior and callbacks.                |
 | filter     | `TableFilterConfig`                                     | false        | `{}`          | Filter behavior and callbacks.                |
+| export     | `TableExportConfig`                                     | false        | `{}`          | CSV export behavior and callback override.    |
 | styling    | `TableStylingConfig`                                    | false        | `{}`          | Style and theme options.                      |
 
 ### `pagination` config (`TablePaginationConfig`)
@@ -138,6 +160,17 @@ export function ExampleTable() {
 | titleClassNames     | `string`                                   |             | Custom class names for table title.   |
 | colorPalette        | `"classic" \| "modernDark" \| "softEarth"` | `"classic"` | Built-in table color palette.         |
 
+### `export` config (`TableExportConfig`)
+
+| Field       | Type                             | Default          | Description                                                                                         |
+| ----------- | -------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------- |
+| show        | `boolean`                        | `false`          | Shows/hides the export button in the top controls area, opposite to search/filter controls.         |
+| onExport    | `(data: TableRowData[]) => void` |                  | Optional override callback. When provided, it receives the processed table data and handles export. |
+| exportLabel | `string`                         | `"download"`     | Custom export button text. If omitted or blank, the button label falls back to `"download"`.        |
+| fileName    | `string`                         | `"table-export"` | File name used for automatic CSV downloads. `.csv` is appended if it is not provided.               |
+
+When `onExport` is not provided, the component exports a CSV file automatically using the current processed table data (including active filters/search/sorting). The default download file name is `table-export.csv`.
+
 ## Exports
 
 This library exports:
@@ -170,8 +203,6 @@ import TableComponent, {
 ### Known Issues to Fix:
 
 ### Future Enhancements:
-
-- Implement an export action with exportCallback.
 
 ## Contributing
 
