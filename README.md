@@ -28,6 +28,26 @@ npm run test:coverage
 
 The coverage command prints percentage metrics in the terminal (Statements, Branches, Functions, and Lines) and also writes HTML and LCOV reports into the `coverage/` folder.
 
+## Documentation Website
+
+This repository includes a documentation site in `page/` (Vite + React).
+
+Run it locally:
+
+```bash
+npm run rollup
+npm install --prefix page
+npm run dev --prefix page
+```
+
+Build it locally:
+
+```bash
+npm run build --prefix page
+```
+
+Deploy is automated by `.github/workflows/pages-deploy.yml` and publishes from `page/dist`.
+
 ## Examples
 
 Import the default `TableComponent` and pass `headers`, `data`, and any optional configs:
