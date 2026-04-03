@@ -14,6 +14,7 @@ import getCurrentPageContent from "../../utils/getCurrentPageContent";
 import sortData from "../../utils/sortData";
 import getValidHeaders from "../../utils/getValidHeaders";
 import { ALL_SEARCH_KEY } from "../../utils/consts";
+import exportToCsv from "../../utils/exportToCsv";
 
 const TableComponent = ({
   data,
@@ -23,6 +24,7 @@ const TableComponent = ({
   sorting = {},
   search = {},
   filter = {},
+  export: exportConfig = {},
   styling = {},
 }: TableComponentProps) => {
   const {
@@ -56,6 +58,13 @@ const TableComponent = ({
     cancelFilterLabel,
     title: filterTitle
   } = filter;
+
+  const {
+    show: showExportButton = false,
+    onExport: onExportCallback,
+    exportLabel,
+    fileName,
+  } = exportConfig;
 
   const {
     containerClassNames,
@@ -269,6 +278,18 @@ const TableComponent = ({
     return getCurrentPageContent(processedData, pageSize, currentPage);
   }, [processedData, pageSize, currentPage]);
 
+  const handleExport = () => {
+    if (onExportCallback) {
+      onExportCallback(processedData);
+      return;
+    }
+
+    exportToCsv(processedData, headers, fileName);
+  };
+
+  const exportButtonLabel = exportLabel?.trim() || "Download";
+  const shouldRenderTopControls = showSearchInput || showFilterInput || showExportButton;
+
   return (
     <div
       className={`table-container ${styles.tableContainer} ${themes.tableThemes} ${containerClassNames}`}
@@ -279,31 +300,41 @@ const TableComponent = ({
           {title}
         </div>
       )}
-      {(showSearchInput || showFilterInput) && (
-        <div className={styles.searchAndFilterWrapper}>
-          {showSearchInput && (
-            <SearchComponent
-              headers={headers}
-              validSearchableHeaders={validSearchableHeaders}
-              searchTerm={searchTerm}
-              searchKey={searchKey}
-              onSearchChange={handleSearchChange}
-              searchAllFieldsLabel={searchAllFieldsLabel}
-            />
+      {shouldRenderTopControls && (
+        <div className={styles.topControlsContainer}>
+          {(showSearchInput || showFilterInput) && (
+            <div className={styles.searchAndFilterWrapper}>
+              {showSearchInput && (
+                <SearchComponent
+                  headers={headers}
+                  validSearchableHeaders={validSearchableHeaders}
+                  searchTerm={searchTerm}
+                  searchKey={searchKey}
+                  onSearchChange={handleSearchChange}
+                  searchAllFieldsLabel={searchAllFieldsLabel}
+                />
+              )}
+
+              {showFilterInput && (
+                <FilterComponent
+                  headers={headers}
+                  data={data}
+                  filterableHeaders={validFilterableHeaders}
+                  location={filterLocation}
+                  appliedFilters={activeFilters}
+                  onApply={handleFilterApply}
+                  applyFilterLabel={applyFilterLabel}
+                  cancelFilterLabel={cancelFilterLabel}
+                  title={filterTitle}
+                />
+              )}
+            </div>
           )}
 
-          {showFilterInput && (
-            <FilterComponent
-              headers={headers}
-              data={data}
-              filterableHeaders={validFilterableHeaders}
-              location={filterLocation}
-              appliedFilters={activeFilters}
-              onApply={handleFilterApply}
-              applyFilterLabel={applyFilterLabel}
-              cancelFilterLabel={cancelFilterLabel}
-              title={filterTitle}
-            />
+          {showExportButton && (
+            <button type="button" className={styles.exportButton} onClick={handleExport}>
+              {exportButtonLabel}
+            </button>
           )}
         </div>
       )}

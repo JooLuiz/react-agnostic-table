@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - yyyy-mm-dd
 
+## [1.1.0] - 2026-April-03
+
+### Added
+
+- CSV export support in `TableComponent` through a new `export` config (`show`, `exportLabel`, and `onExport`); default behavior downloads the currently processed table data while allowing custom export handlers.
+- New `test:coverage` npm command to run Jest coverage with both detailed per-file output and total coverage summary percentages.
+
 ## [1.0.0] - 2026-Mar-23
 
 ### Added
