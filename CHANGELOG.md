@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - yyyy-mm-dd
 
+## [1.1.1] - 2026-April-03
+
+### Fixed
+
+- Fixed package.json configs to guarantee package completion.
+
 ## [1.1.0] - 2026-April-03
 
 ### Added
